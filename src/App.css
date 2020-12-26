@@ -8,4 +8,6 @@
 .app__body {
   display: flex;
   margin-top: 30px;
+  margin-right: 150px;
+  margin-left: 150px;
 }

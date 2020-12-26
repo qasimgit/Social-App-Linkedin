@@ -4,6 +4,7 @@
   align-items: center;
   color: gray;
   cursor: pointer;
+  padding: 16px 10px;
 }
 
 .feed__inputOption:hover {

@@ -1,0 +1,33 @@
+.post {
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.post__header {
+  display: flex;
+}
+
+.post__info > h4 {
+  margin-left: 6px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.post__info > p {
+  margin-left: 6px;
+  color: gray;
+}
+
+.post__body {
+  overflow-wrap: anywhere;
+  margin-top: 25px;
+  margin-bottom: 45px;
+}
+
+.post__buttons {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid lightgray;
+}

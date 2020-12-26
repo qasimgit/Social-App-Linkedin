@@ -1,14 +1,8 @@
 import { Icon } from "@material-ui/core";
+import "./InputOptions.css";
 const InputOptions = ({ title, Icon, color }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        color: "gray",
-        cursor: "pointer",
-      }}
-      className="feed__inputOption"
-    >
+    <div className="feed__inputOption">
       <Icon style={{ color: color }} />
       <h4>{title}</h4>
     </div>
