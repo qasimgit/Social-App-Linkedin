@@ -1,17 +1,17 @@
 import firebase from "firebase";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAMSxUSyutTZBu2t0_-tM_e89n9sWKiAiY",
-  authDomain: "react-firebase-social-ap-fca02.firebaseapp.com",
-  databaseURL: "https://react-firebase-social-ap-fca02.firebaseio.com",
-  projectId: "react-firebase-social-ap-fca02",
-  storageBucket: "react-firebase-social-ap-fca02.appspot.com",
-  messagingSenderId: "266467347844",
-  appId: "1:266467347844:web:41eee8d2687cfa5910e1d1",
+  apiKey: "AIzaSyBsL3KDK2g6pOdUWNNj94mERkUrhLIEvak",
+  authDomain: "linkedin-30a9f.firebaseapp.com",
+  projectId: "linkedin-30a9f",
+  storageBucket: "linkedin-30a9f.appspot.com",
+  messagingSenderId: "5317142650",
+  appId: "1:5317142650:web:e18da98f39b0161c6633c3",
+  measurementId: "G-KM4N30Y70B",
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
-export { auth, auth };
+export { auth, db };

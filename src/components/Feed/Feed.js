@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import "./feed.css";
 import CreateIcon from "@material-ui/icons/Create";
 import InputOptions from "./InputOptions";
@@ -7,13 +8,37 @@ import EventNoteIcon from "@material-ui/icons/EventNote";
 import CalendarViewDayIcon from "@material-ui/icons/CalendarViewDay";
 import Post from "../Posts/Post";
 import me from "../../assets/me.png";
-import { useState } from "react";
+import { db } from "../firebase";
+import firebase from "firebase";
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
+  const [input, setInput] = useState("");
+
+  useEffect(() => {
+    db.collection("posts").onSnapshot((snapShot) => {
+      setPosts(
+        snapShot.docs.map((doc) => {
+          return {
+            id: doc.id,
+            data: doc.data(),
+          };
+        })
+      );
+    });
+  }, []);
 
   const sendPost = (e) => {
     e.preventDefault();
+    console.log("Send post clicked");
+    db.collection("posts").add({
+      name: "M. Qasim",
+      description: "Entreprenur",
+      message: input,
+      photoURL: "",
+      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    setInput("");
   };
   return (
     <div className="feed">
@@ -21,7 +46,12 @@ const Feed = () => {
         <div className="feed__input">
           <CreateIcon />
           <form>
-            <input type="text" placeholder="Start a post" />
+            <input
+              type="text"
+              onChange={(e) => setInput(e.target.value)}
+              value={input}
+              placeholder="Start a post"
+            />
             <button type="submit" onClick={sendPost}>
               Send
             </button>
@@ -42,12 +72,17 @@ const Feed = () => {
           />
         </div>
       </div>
-      <Post
-        name="Muhammad Qasim"
-        description="Front-End Developer"
-        photoURL={me}
-        message="I am  enjyoing here are you?"
-      />
+      {posts.map(({ id, data: { name, description, message, photoURL } }) => {
+        return (
+          <Post
+            key={id}
+            name={name}
+            description={description}
+            photoURL={photoURL}
+            message={message}
+          />
+        );
+      })}
     </div>
   );
 };
