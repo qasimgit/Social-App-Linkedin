@@ -1,0 +1,39 @@
+.login__header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.login__header > img {
+  object-fit: contain;
+  height: 60px;
+  margin-left: 20px;
+}
+
+.login__header > h1 {
+  font-size: 50px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  padding: 15px 25px;
+  margin: 10px;
+}
+
+.submit__button {
+  padding: 12px;
+  background-color: #3b77b7;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  margin-bottom: 20px;
+}
+
+.login__register {
+  color: #3b77b7;
+}

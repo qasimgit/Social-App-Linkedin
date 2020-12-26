@@ -16,16 +16,18 @@ const Feed = () => {
   const [input, setInput] = useState("");
 
   useEffect(() => {
-    db.collection("posts").onSnapshot((snapShot) => {
-      setPosts(
-        snapShot.docs.map((doc) => {
-          return {
-            id: doc.id,
-            data: doc.data(),
-          };
-        })
-      );
-    });
+    db.collection("posts")
+      .orderBy("timeStamp", "desc")
+      .onSnapshot((snapShot) => {
+        setPosts(
+          snapShot.docs.map((doc) => {
+            return {
+              id: doc.id,
+              data: doc.data(),
+            };
+          })
+        );
+      });
   }, []);
 
   const sendPost = (e) => {
