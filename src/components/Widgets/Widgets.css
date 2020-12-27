@@ -1,0 +1,34 @@
+.widgets {
+  position: sticky;
+  top: 80px;
+  flex: 0.2;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px sold lightgray;
+  height: fit-content;
+  padding: 20px;
+}
+
+.widgets__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.widgets__header > h2 {
+  font-size: 25px;
+  font-weight: 500;
+  color: rgb(104, 104, 241);
+}
+
+.widgets__article {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.article__right {
+  margin: 10px;
+  margin-top: 20px;
+}

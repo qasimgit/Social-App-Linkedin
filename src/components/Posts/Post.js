@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { Avatar } from "@material-ui/core";
 import InputOptions from "../Feed/InputOptions";
 import "./Post.css";
@@ -5,11 +6,15 @@ import CommentOutlinedIcon from "@material-ui/icons/CommentOutlined";
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import NearMeOutlinedIcon from "@material-ui/icons/NearMeOutlined";
-const Post = ({ name, description, photoURL, message }) => {
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
+
+const Post = forwardRef(({ name, description, photoURL, message }, ref) => {
+  const user = useSelector(selectUser);
   return (
-    <div className="post">
+    <div ref={ref} className="post">
       <div className="post__header">
-        <Avatar src={photoURL} />
+        <Avatar src={user?.photoUrl}>{user?.email[0]}</Avatar>
         <div className="post__info">
           <h4>{name}</h4>
           <p>{description}</p>
@@ -26,6 +31,6 @@ const Post = ({ name, description, photoURL, message }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Post;

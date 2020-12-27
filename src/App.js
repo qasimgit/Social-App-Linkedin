@@ -1,6 +1,7 @@
 import "./App.css";
 import Header from "../src/components/header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
+import Widgets from "./components/Widgets/Widgets";
 import Feed from "./components/Feed/Feed";
 import { login, logout, selectUser } from "./features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +13,7 @@ const App = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
-  useEffect(() => {}, [
+  useEffect(() => {
     auth.onAuthStateChanged((userAuth) => {
       console.log("userAuth", userAuth);
       if (userAuth) {
@@ -29,8 +30,8 @@ const App = () => {
         dispatch(logout());
         // user logout
       }
-    }),
-  ]);
+    });
+  }, []);
 
   return (
     <div className="app">
@@ -42,6 +43,7 @@ const App = () => {
         <div className="app__body">
           <Sidebar />
           <Feed />
+          <Widgets />
         </div>
       )}
     </div>

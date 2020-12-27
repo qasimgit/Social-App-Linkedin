@@ -10,8 +10,13 @@ import Post from "../Posts/Post";
 import me from "../../assets/me.png";
 import { db } from "../firebase";
 import firebase from "firebase";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
+import FlipMove from "react-flip-move";
 
 const Feed = () => {
+  const user = useSelector(selectUser);
+
   const [posts, setPosts] = useState([]);
   const [input, setInput] = useState("");
 
@@ -34,10 +39,12 @@ const Feed = () => {
     e.preventDefault();
     console.log("Send post clicked");
     db.collection("posts").add({
-      name: "M. Qasim",
-      description: "Entreprenur",
+      name: user?.displayName,
+      description: user?.email,
       message: input,
-      photoURL: "",
+      photoURL: user?.photoUrl,
+      likes: [],
+      comments: [],
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setInput("");
@@ -74,17 +81,19 @@ const Feed = () => {
           />
         </div>
       </div>
-      {posts.map(({ id, data: { name, description, message, photoURL } }) => {
-        return (
-          <Post
-            key={id}
-            name={name}
-            description={description}
-            photoURL={photoURL}
-            message={message}
-          />
-        );
-      })}
+      <FlipMove>
+        {posts.map(({ id, data: { name, description, message, photoURL } }) => {
+          return (
+            <Post
+              key={id}
+              name={name}
+              description={description}
+              photoURL={photoURL}
+              message={message}
+            />
+          );
+        })}
+      </FlipMove>
     </div>
   );
 };

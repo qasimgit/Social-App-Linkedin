@@ -36,4 +36,5 @@ form {
 
 .login__register {
   color: #3b77b7;
+  cursor: pointer;
 }

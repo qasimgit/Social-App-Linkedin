@@ -115,9 +115,9 @@ const Login = () => {
       </form>
 
       <p>
-        Already have an account ?{" "}
+        Not a member?{" "}
         <span className="login__register" onClick={register}>
-          Log in
+          Register
         </span>
       </p>
     </div>
