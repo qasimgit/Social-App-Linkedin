@@ -2,12 +2,36 @@ import "./App.css";
 import Header from "../src/components/header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Feed from "./components/Feed/Feed";
-import { selectUser } from "./features/userSlice";
-import { useSelector } from "react-redux";
+import { login, logout, selectUser } from "./features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 import Login from "./components/Login/Login";
+import { auth } from "./components/firebase";
+import { useEffect } from "react";
 
-function App() {
+const App = () => {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  useEffect(() => {}, [
+    auth.onAuthStateChanged((userAuth) => {
+      console.log("userAuth", userAuth);
+      if (userAuth) {
+        dispatch(
+          login({
+            email: userAuth.email,
+            uid: userAuth.uid,
+            displayName: userAuth.displayName,
+            photoUrl: userAuth.photoURL,
+          })
+        );
+        // user logged in
+      } else {
+        dispatch(logout());
+        // user logout
+      }
+    }),
+  ]);
+
   return (
     <div className="app">
       {/* Header */}
@@ -22,6 +46,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
 export default App;

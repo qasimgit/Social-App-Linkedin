@@ -3,21 +3,21 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    value: null,
+    user: null,
   },
   reducers: {
     login: (state, action) => {
-      state.value = action.payload;
+      state.user = action.payload;
     },
     logout: (state) => {
-      state.value = null;
+      state.user = null;
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount } = userSlice.actions;
+export const { login, logout } = userSlice.actions;
 
 // selectors
-export const selectUser = (state) => state.user.value;
+export const selectUser = (state) => state.user.user;
 
 export default userSlice.reducer;

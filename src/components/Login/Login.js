@@ -4,6 +4,8 @@ import linkedin from "../../assets/linkedin.svg";
 import { auth } from "../firebase";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/userSlice";
+import { useHistory } from "react-router-dom";
+
 const Login = () => {
   const [form, setForm] = useState({
     name: "",
@@ -13,7 +15,8 @@ const Login = () => {
   });
 
   const dispatch = useDispatch();
-  const register = () => {
+  // const history = useHistory();
+  const LoginApp = (e) => {
     e.preventDefault();
 
     if (!form.name) {
@@ -21,26 +24,44 @@ const Login = () => {
     }
 
     auth
-      .createUserWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(form.email, form.password)
       .then((userAuth) => {
-        userAuth.user.updateProfile({
-          displayName: form.name,
-          photoURL: form.profilePic,
-        });
+        userAuth.user
+          .updateProfile({
+            displayName: form.name,
+            photoURL: form.profilePic,
+          })
+          .then(() => {
+            dispatch(
+              login({
+                email: userAuth?.user.email,
+                uid: userAuth?.user.uid,
+                displayName: form.name,
+                photoUrl: form.profilePic,
+              })
+            );
+          });
+        // .then(() => {
+        //   history.push("/home");
+        // });
       })
-      .then(() => {
+      .catch((err) => alert("error: ", err.message));
+  };
+  const register = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithEmailAndPassword(form.email, form.password)
+      .then((userAuth) => {
         dispatch(
           login({
             email: userAuth.user.email,
             uid: userAuth.user.uid,
-            displayName: form.name,
-            photoUrl: form.profilePic,
+            displayName: userAuth.user.displayName,
+            profileUrl: userAuth.user.photoURL,
           })
         );
-      });
-  };
-  const LoginApp = (e) => {
-    e.preventDefault();
+      })
+      .catch((err) => alert("error:", err.message));
   };
 
   const handleForm = ({ target: { name, value } }) => {
@@ -56,6 +77,7 @@ const Login = () => {
       </div>
       <form>
         <input
+          className="login__input"
           type="text"
           placeholder="Full Name"
           name="name"
@@ -63,6 +85,7 @@ const Login = () => {
           value={form.name}
         />
         <input
+          className="login__input"
           type="text"
           placeholder="Profile Pic URL"
           name="profilePic"
@@ -70,6 +93,7 @@ const Login = () => {
           onChange={handleForm}
         />
         <input
+          className="login__input"
           type="email"
           name="email"
           placeholder="Email"
@@ -77,6 +101,7 @@ const Login = () => {
           value={form.email}
         />
         <input
+          className="login__input"
           type="password"
           name="password"
           placeholder="Password"
@@ -84,14 +109,14 @@ const Login = () => {
           value={form.password}
         />
 
-        <button type="submit" onClick={register} className="submit__button">
+        <button type="submit" onClick={LoginApp} className="submit__button">
           Sign in
         </button>
       </form>
 
       <p>
         Already have an account ?{" "}
-        <span className="login__register" onClick={LoginApp}>
+        <span className="login__register" onClick={register}>
           Log in
         </span>
       </p>
